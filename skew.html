@@ -9,9 +9,9 @@
   <style>
     .pie {
       overflow: hidden;
+      background-size: cover;
       position: relative;
       margin: 0 auto;
-      transform: rotate(270deg);
       border: 2em solid #F3BE75;
       padding: 0;
       width: 30em;
@@ -23,8 +23,6 @@
     .slice {
       overflow: hidden;
       position: absolute;
-            background-clip: border-box;
-
       top: 0;
       right: 0;
       width: 50%;
@@ -48,8 +46,8 @@
       animation: zoomOut 0.3s ease-in-out;
     }
 
-    .slice:hover .slice-contents{
-      border: 1px solid black;
+    .slice:hover .slice-contents {
+      background-image: url('pp.jpg');
     }
 
     @keyframes zoomOut {
@@ -99,14 +97,17 @@
       <div class='slice-contents'>
       </div>
     </li>
-    <ul>
+  </ul>
 
 </body>
 
 <script>
   const slices = document.querySelectorAll('.slice');
-  slices.forEach((slice, i)=>{
-    slice.style.transform = `rotate(${i*45}deg) skewY(-45deg)`;
+  slices.forEach((slice, i) => {
+    slice.style.transform = `rotate(${i * 45}deg) skewY(-45deg)`;
+    slice.addEventListener('click', () => {
+      slice.parentNode.removeChild(slice);
+    })
   })
   const contents = document.querySelectorAll('div.slice-contents');
   const pie = document.querySelector('.pie')
@@ -122,6 +123,11 @@
       i.classList.remove('run-animation');
     })
   })
+  setInterval(() => {
+    if (pie.childElementCount === 0) {
+      pie.style.backgroundImage = "url('ww.jpg')";
+    }
+  }, 1000);
 
 </script>
 
